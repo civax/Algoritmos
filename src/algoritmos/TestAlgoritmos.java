@@ -6,7 +6,9 @@
 
 package algoritmos;
 
-import algoritmos.util.Algoritmos;
+import algoritmos.sort.Sort;
+import algoritmos.util.Util;
+import algoritmos.series.Series;
 
 /**
  *
@@ -17,7 +19,7 @@ public class TestAlgoritmos {
     /**
      * @param args the command line arguments
      */
-    final static Algoritmos algoritmo=new Algoritmos();
+    final static Util algoritmo=new Util();
     public static void main(String[] args) {
         //Ejercicio 9
         //contarDivisiones();
@@ -30,10 +32,10 @@ public class TestAlgoritmos {
      *  generar el MCD de A , B donde A= fibonacci de n y B fibonaci de n-1
      */
     private static void contarDivisiones(){
-        int[] lista=algoritmo.getFibonacciArray(2, 16);
+        int[] lista=Series.getFibonacciArray(2, 16);
         for(int i=1;i<lista.length;i++){
             System.out.println("A: "+lista[i]+" B: "+lista[i-1] );
-            System.out.println("MCD: "+algoritmo.getNumeroDeDivisionesMCD(lista[i], lista[i-1],0));
+            System.out.println("MCD: "+Series.getNumeroDeDivisionesMCD(lista[i], lista[i-1],0));
         }
     }
     private static void calcularParejas(int n){
@@ -47,18 +49,18 @@ public class TestAlgoritmos {
         }
         System.out.println(pares);
     }
+    private static void testSorts(){
+        int[] array=Util.createRandomIntArray(10, 0, 15);
+	Util.printArray(array);
+	Sort.sortByBubble(array);
+	Util.printArray(array);
+	System.out.println(Util.isSorted(array));
+    }
     private static void contarDivisionesLineal(){
-        int[] lista=getArray();
+        int[] lista=Util.createIntArray(20, 0);
         for(int i=1;i<lista.length;i++){
             System.out.println("A: "+lista[i]+" B: "+lista[i-1] );
-            System.out.println("MCD: "+algoritmo.getNumeroDeDivisionesMCD(lista[i], lista[i-1],0));
+            System.out.println("MCD: "+Series.getNumeroDeDivisionesMCD(lista[i], lista[i-1],0));
         }
-    }
-    private static int[] getArray(){
-        int[] list=new int[20];
-        for(int i=0;i<20;i++){
-            list[i]=i+1;
-        }
-        return list;
     }
 }

@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-package algoritmos.util;
+package algoritmos.series;
 
+import algoritmos.util.Util;
 import java.util.ArrayList;
 
 /**
  *
- * @author CarlosIván Castillo Sepúlveda
+ * @author CarlosIván
  */
-public class Algoritmos {
-    
+public class Series {
     /**
      *
      * Criba de Eratóstenes
@@ -31,7 +31,7 @@ public class Algoritmos {
      */
     // Algoritmo de Eratóstenes
     public ArrayList<Integer> getPrimosEnRango(int a,int b){
-        ArrayList<Integer> lista= getArrayConsecutivo(a,b);
+        ArrayList<Integer> lista= Util.getIntListConsecutivo(a,b);
         ArrayList<Integer> reslista= new ArrayList<>();
         System.out.println(lista);
         int i=0;
@@ -48,51 +48,13 @@ public class Algoritmos {
         }
         return lista;
     }
-    
-    public ArrayList<Integer> getArrayConsecutivo(int a,int b){
-        ArrayList<Integer> list=new ArrayList<>();
-        for(int i=a;i<=b;i++){
-            list.add(i);
-        }
-        return list;
-    }
-    
-    /**
-    * 
-    * Algoritmo de Euclides tradicional implementado de manera recurrente
-    * Función mcd(a,b):
-    * 
-    * Si b=0  entonces:
-    * El resultado es a 
-    * En otro caso:
-    * El resultado es mcd(b,a mod b)
-    *
-    * @param a número entero mayor a 0
-    * @param b número entero mayor a 0
-    * @return máximo común divisor de a y b
-    */
-    public int getMCD(int a,int b){
-        if(b==0){
-            return a;
-        }else{
-            return getMCD(b,a%b);
-        }
-    }
-    public int getNumeroDeDivisionesMCD(int a,int b,int i){
-        if(b==0){
-            System.out.println("#div: "+i);
-            return a;
-        }else{
-            return getNumeroDeDivisionesMCD(b,a%b,++i);
-        }
-    }
     /**
      * Este método obtiene el fibonacci de un número entero mayor a 0
      * 
      * @param n 
      * @return Número fibonacci de n
      */
-    public int getFibonacci(int n){
+    public static int getFibonacci(int n){
         if(n==0){
             return 1;
         }if(n==1){
@@ -108,7 +70,7 @@ public class Algoritmos {
      * @param b limite superior
      * @return Una arreglo con los números fibonacci desde a hasta b
      */
-    public int[] getFibonacciArray(int a,int b){
+    public static int[] getFibonacciArray(int a,int b){
         int[] list=new int[b-a+2];
         for(int i=a-1,j=0;i<=b;i++,j++){
             list[j]=(getFibonacci(i));
@@ -116,32 +78,32 @@ public class Algoritmos {
         return list;
     }
     /**
-     * Crea un arreglo entero con valores consecutivos desde min hasta min+N
-     * @param N tamaño del arreglo
-     * @param min limite inferior para los numeros aleatorios
-     * @param max limite superior para los numeros aleatorios
-     * @return un arreglo de N numeros enteros aleatorios
-     * */
-    
-    private static int[] createIntArray(int N,int min){
-        int[] list=new int[N];
-        for(int i=0,j=min;i<N;i++,j++){
-            list[j]=j+1;
+    * 
+    * Algoritmo de Euclides tradicional implementado de manera recurrente
+    * Función mcd(a,b):
+    * 
+    * Si b=0  entonces:
+    * El resultado es a 
+    * En otro caso:
+    * El resultado es mcd(b,a mod b)
+    *
+    * @param a número entero mayor a 0
+    * @param b número entero mayor a 0
+    * @return máximo común divisor de a y b
+    */
+    public static int getMCD(int a,int b){
+        if(b==0){
+            return a;
+        }else{
+            return getMCD(b,a%b);
         }
-        return list;
     }
-    /**
-     * Crea un arreglo entero con valores aleatorios en un rango dado
-     * @param N tamaño del arerglo
-     * @param min limite inferior para los numeros aleatorios
-     * @param max limite superior para los numeros aleatorios
-     * @return un arreglo de N numeros enteros aleatorios
-     * */
-    public static int[] createRandomIntArray(int N,int min,int max){
-    	int[] intArray=new int[N];
-	for(int i=0;i<intArray.length;i++){
-		intArray[i]=(int)(Math.random()*(max-min+1)) ;
-	}
-	return intArray;	
+    public static int getNumeroDeDivisionesMCD(int a,int b,int i){
+        if(b==0){
+            System.out.println("#div: "+i);
+            return a;
+        }else{
+            return getNumeroDeDivisionesMCD(b,a%b,++i);
+        }
     }
 }
