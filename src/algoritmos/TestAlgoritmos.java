@@ -6,9 +6,11 @@
 
 package algoritmos;
 
-import algoritmos.sort.Sort;
-import algoritmos.util.Util;
 import algoritmos.series.Series;
+import algoritmos.sort.Sort;
+import algoritmos.sort.SortingMethods;
+import algoritmos.util.Util;
+import java.util.HashMap;
 
 /**
  *
@@ -25,7 +27,8 @@ public class TestAlgoritmos {
         //contarDivisiones();
         //contarDivisionesLineal();
         //primos.getPrimosEnRango(2, 15);
-        calcularParejas(5);
+        //calcularParejas(5);
+        testSorts();
     }
     /*
      *  generar los números fibonacci de 2 hasta 16
@@ -50,11 +53,53 @@ public class TestAlgoritmos {
         System.out.println(pares);
     }
     private static void testSorts(){
-        int[] array=Util.createRandomIntArray(10, 0, 15);
-	Util.printArray(array);
-	Sort.sortByBubble(array);
-	Util.printArray(array);
-	System.out.println(Util.isSorted(array));
+        int[] array1=Util.createRandomIntArray(20, Byte.MIN_VALUE, Byte.MAX_VALUE);
+        int[] array2=array1.clone();
+        int[] array3=array1.clone();
+        HashMap<String,Sort> algoritmos=SortingMethods.getSortingMethods();
+        // insertion sort
+        System.out.println("-- Insertion Sort --");
+	Util.printArray(array1);
+	algoritmos.get("insertion").sort(array1);
+	Util.printArray(array1);
+	System.out.println("isSorted: "+Util.isSorted(array1));
+        
+        //selection sort
+        System.out.println("-- Selection Sort --");
+        Util.printArray(array2);
+	algoritmos.get("seection").sort(array2);
+	Util.printArray(array2);
+	System.out.println("isSorted: "+Util.isSorted(array2));
+        
+        //bubble sort
+        System.out.println("-- Bubble Sort --");
+        Util.printArray(array3);
+	algoritmos.get("section").sort(array3);
+	Util.printArray(array3);
+	System.out.println("isSorted: "+Util.isSorted(array3));
+    }
+    private static void testSortsAPosteriori(){
+        final int ITERACIONES=500;
+        HashMap<String,Sort> algoritmos=SortingMethods.getSortingMethods();
+        int[] array1;
+        int[] array2;
+        int[] array3;
+        int tiempo1,tiempo2,tiempo3;
+        //crear un array de 1 a 200 posiciones
+        for(int N=1;N<=200;N++){
+            // llamar 500 veces cada algoritmo
+            for(int i=0;i<500;i++){
+                //creando los arreglos de N elementos
+                array1=Util.createRandomIntArray(N, Byte.MIN_VALUE, Byte.MAX_VALUE);
+                array2=array1.clone();
+                array3=array1.clone();
+                //ordenando los arreglos previamente creados con los diferentes algoritmos a analizar
+                System.currentTimeMillis();
+                algoritmos.get("selection") .sort(array1);
+                algoritmos.get("insertion") .sort(array2);
+                algoritmos.get("bubble")    .sort(array3);
+            }
+        }
     }
     private static void contarDivisionesLineal(){
         int[] lista=Util.createIntArray(20, 0);
