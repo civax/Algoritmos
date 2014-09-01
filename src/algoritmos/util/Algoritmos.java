@@ -115,4 +115,33 @@ public class Algoritmos {
         }
         return list;
     }
+    /**
+     * Crea un arreglo entero con valores consecutivos desde min hasta min+N
+     * @param N tamaño del arreglo
+     * @param min limite inferior para los numeros aleatorios
+     * @param max limite superior para los numeros aleatorios
+     * @return un arreglo de N numeros enteros aleatorios
+     * */
+    
+    private static int[] createIntArray(int N,int min){
+        int[] list=new int[N];
+        for(int i=0,j=min;i<N;i++,j++){
+            list[j]=j+1;
+        }
+        return list;
+    }
+    /**
+     * Crea un arreglo entero con valores aleatorios en un rango dado
+     * @param N tamaño del arerglo
+     * @param min limite inferior para los numeros aleatorios
+     * @param max limite superior para los numeros aleatorios
+     * @return un arreglo de N numeros enteros aleatorios
+     * */
+    public static int[] createRandomIntArray(int N,int min,int max){
+    	int[] intArray=new int[N];
+	for(int i=0;i<intArray.length;i++){
+		intArray[i]=(int)(Math.random()*(max-min+1)) ;
+	}
+	return intArray;	
+    }
 }
