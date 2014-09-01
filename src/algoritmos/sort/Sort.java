@@ -14,5 +14,9 @@ import java.util.HashMap;
  */
 @FunctionalInterface
 public interface Sort {
+    String INSERTION="INSERTION";
+    String SELECTION="SELECTION";
+    String BUBBLE="BUBBLE";
+    String SHELL="SHELL";
     public HashMap<String,Integer> sort(int[] array);
 }

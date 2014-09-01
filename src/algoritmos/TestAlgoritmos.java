@@ -9,7 +9,10 @@ package algoritmos;
 import algoritmos.series.Series;
 import algoritmos.sort.Sort;
 import algoritmos.sort.SortingMethods;
+import static algoritmos.sort.SortingMethods.COMPARACIONES;
+import static algoritmos.sort.SortingMethods.MOVIMIENTOS;
 import algoritmos.util.Util;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -57,50 +60,68 @@ public class TestAlgoritmos {
         int[] array2=array1.clone();
         int[] array3=array1.clone();
         HashMap<String,Sort> algoritmos=SortingMethods.getSortingMethods();
+        HashMap<String,Integer> performance;
         // insertion sort
         System.out.println("-- Insertion Sort --");
 	Util.printArray(array1);
-	algoritmos.get("insertion").sort(array1);
+	performance=algoritmos.get(Sort.INSERTION).sort(array1);
 	Util.printArray(array1);
 	System.out.println("isSorted: "+Util.isSorted(array1));
-        
+        System.out.println("movimientos: "+performance.get(MOVIMIENTOS)+" comparaciones: "+performance.get(COMPARACIONES));
         //selection sort
         System.out.println("-- Selection Sort --");
         Util.printArray(array2);
-	algoritmos.get("seection").sort(array2);
+	performance=algoritmos.get(Sort.SELECTION).sort(array2);
 	Util.printArray(array2);
 	System.out.println("isSorted: "+Util.isSorted(array2));
+        System.out.println("movimientos: "+performance.get(MOVIMIENTOS)+" comparaciones: "+performance.get(COMPARACIONES));
         
         //bubble sort
         System.out.println("-- Bubble Sort --");
         Util.printArray(array3);
-	algoritmos.get("section").sort(array3);
+	performance=algoritmos.get(Sort.BUBBLE).sort(array3);
 	Util.printArray(array3);
 	System.out.println("isSorted: "+Util.isSorted(array3));
+        System.out.println("movimientos: "+performance.get(MOVIMIENTOS)+" comparaciones: "+performance.get(COMPARACIONES));
     }
-    private static void testSortsAPosteriori(){
-        final int ITERACIONES=500;
+    
+    private static void  testSortsAPosteriori(){
         HashMap<String,Sort> algoritmos=SortingMethods.getSortingMethods();
-        int[] array1;
-        int[] array2;
-        int[] array3;
-        int tiempo1,tiempo2,tiempo3;
+        ArrayList<HashMap<String,Double>> desempeñoInsertion=new ArrayList<>();
+        ArrayList<HashMap<String,Double>> desempeñoBubble=new ArrayList<>();
+        ArrayList<HashMap<String,Double>> desempeñoSelection=new ArrayList<>();
+        int rango=200;
+        int iteraciones=500;
+        
         //crear un array de 1 a 200 posiciones
-        for(int N=1;N<=200;N++){
-            // llamar 500 veces cada algoritmo
-            for(int i=0;i<500;i++){
-                //creando los arreglos de N elementos
-                array1=Util.createRandomIntArray(N, Byte.MIN_VALUE, Byte.MAX_VALUE);
-                array2=array1.clone();
-                array3=array1.clone();
-                //ordenando los arreglos previamente creados con los diferentes algoritmos a analizar
-                System.currentTimeMillis();
-                algoritmos.get("selection") .sort(array1);
-                algoritmos.get("insertion") .sort(array2);
-                algoritmos.get("bubble")    .sort(array3);
-            }
+        for(int N=1;N<=rango;N++){
+            //creando los arreglos de N elementos
+            int[] array=Util.createRandomIntArray(N, Byte.MIN_VALUE, Byte.MAX_VALUE);;
+            desempeñoSelection.add(testSortAlgorithm(iteraciones, array, algoritmos.get(Sort.SELECTION)));
+            desempeñoInsertion.add(testSortAlgorithm(iteraciones, array, algoritmos.get(Sort.INSERTION)));
+            desempeñoBubble.add(testSortAlgorithm(iteraciones, array, algoritmos.get(Sort.BUBBLE)));
         }
+        
+        
     }
+    private static HashMap<String,Double> testSortAlgorithm(final int ITERACIONES, int[] array, Sort algoritmo){
+        int comparaciones=0,movimientos=0;
+        HashMap<String,Integer> desempeño=null;
+        HashMap<String,Double> desempeñoPromedio=new HashMap<>();
+         // llamar 500 veces cada algoritmo
+        for(int i=0;i<ITERACIONES;i++){
+            int[] array2=array.clone();
+            desempeño=algoritmo.sort(array2);
+            //conteo de comparaciones y movimientos
+            comparaciones+=desempeño.get(COMPARACIONES);
+            movimientos+=desempeño.get(MOVIMIENTOS);
+        }
+        // salvando promedio de comparaciones y movimientos
+        desempeñoPromedio.put(COMPARACIONES,comparaciones/((double)ITERACIONES));
+        desempeñoPromedio.put(MOVIMIENTOS,movimientos/((double)ITERACIONES));
+        return desempeñoPromedio;
+    }
+    
     private static void contarDivisionesLineal(){
         int[] lista=Util.createIntArray(20, 0);
         for(int i=1;i<lista.length;i++){

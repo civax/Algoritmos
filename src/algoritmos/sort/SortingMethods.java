@@ -14,12 +14,15 @@ import java.util.HashMap;
  * @author CarlosIván
  */
 public class SortingMethods {
+    public static final String COMPARACIONES="COMPARACIONES";
+    public static final String MOVIMIENTOS="MOVIMIENTOS";
+    
     public static HashMap<String,Sort> getSortingMethods(){
         HashMap<String,Sort> map=new HashMap<>();
-        map.put("insertion", insertion);
-        map.put("selection", selection);
-        map.put("bubble",bubble);
-        map.put("shell",shell);
+        map.put(Sort.INSERTION, insertion);
+        map.put(Sort.SELECTION, selection);
+        map.put(Sort.BUBBLE,bubble);
+       // map.put(Sort.SHELL,shell);
         return map;
     }
     /**
@@ -50,8 +53,8 @@ public class SortingMethods {
                             movimientos++;
                             array[j+1]=current;
                         }
-                        map.put("comparaciones",comparaciones);
-                        map.put("movimientos",movimientos);
+                        map.put(COMPARACIONES,comparaciones);
+                        map.put(MOVIMIENTOS,movimientos);
                         return map;
                     };
     /**
@@ -81,8 +84,8 @@ public class SortingMethods {
                                 Util.swap(array,minIndex,i);
                             }
                         }
-                        map.put("comparaciones",comparaciones);
-                        map.put("movimientos",movimientos);
+                        map.put(COMPARACIONES,comparaciones);
+                        map.put(MOVIMIENTOS,movimientos);
                         return map;
                     };
     /**
@@ -110,8 +113,8 @@ public class SortingMethods {
                                 }
                             }
                         }
-                        map.put("comparaciones",comparaciones);
-                        map.put("movimientos",movimientos);
+                        map.put(COMPARACIONES,comparaciones);
+                        map.put(MOVIMIENTOS,movimientos);
                         return map;
                     };
     /**
@@ -127,8 +130,8 @@ public class SortingMethods {
                         int movimientos=0;
                         //TODO:
                         //Implementar shell sort
-                        map.put("comparaciones",comparaciones);
-                        map.put("movimientos",movimientos);
+                        map.put(COMPARACIONES,comparaciones);
+                        map.put(MOVIMIENTOS,movimientos);
                         return map;
                     };
     
