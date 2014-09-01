@@ -6,11 +6,13 @@
 
 package algoritmos.sort;
 
+import java.util.HashMap;
+
 /**
  *
  * @author CarlosIván
  */
 @FunctionalInterface
 public interface Sort {
-    public void sort(int[] array);
+    public HashMap<String,Integer> sort(int[] array);
 }
