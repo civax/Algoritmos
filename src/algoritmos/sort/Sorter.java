@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @author CarlosIván
  */
 @FunctionalInterface
-public interface Sort {
+public interface Sorter {
     String INSERTION="INSERTION";
     String SELECTION="SELECTION";
     String BUBBLE="BUBBLE";

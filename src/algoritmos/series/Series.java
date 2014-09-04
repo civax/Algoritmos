@@ -8,6 +8,7 @@ package algoritmos.series;
 
 import algoritmos.util.Util;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -74,6 +75,30 @@ public class Series {
         int[] list=new int[b-a+2];
         for(int i=a-1,j=0;i<=b;i++,j++){
             list[j]=(getFibonacci(i));
+        }
+        return list;
+    }
+    /**
+     * Obtiene el elemento de la secuencia sugerida para h en el shell sort
+     * @param k´indice de la secuencia tal que k >= 0
+     * @return  elemento de la secuencia 1, 4, 13 ...
+     */
+    public static int getH_Shell(int k){
+        if(k==0){
+            return 1;
+        }else{
+           return 3*getH_Shell(k-1)+1; 
+        }
+        
+    }
+    public static LinkedList<Integer> getH_ShellList(int limit){
+        int i=1;
+        int h=1;
+        LinkedList<Integer> list=new LinkedList<>();
+        while(h<=limit){
+            list.push(h);
+            h=getH_Shell(i);
+            i++;
         }
         return list;
     }

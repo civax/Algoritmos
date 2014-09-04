@@ -6,8 +6,10 @@
 
 package algoritmos.sort;
 
+import algoritmos.series.Series;
 import algoritmos.util.Util;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  *
@@ -17,12 +19,12 @@ public class SortingMethods {
     public static final String COMPARACIONES="COMPARACIONES";
     public static final String MOVIMIENTOS="MOVIMIENTOS";
     
-    public static HashMap<String,Sort> getSortingMethods(){
-        HashMap<String,Sort> map=new HashMap<>();
-        map.put(Sort.INSERTION, insertion);
-        map.put(Sort.SELECTION, selection);
-        map.put(Sort.BUBBLE,bubble);
-       // map.put(Sort.SHELL,shell);
+    public static HashMap<String,Sorter> getSortingMethods(){
+        HashMap<String,Sorter> map=new HashMap<>();
+        map.put(Sorter.INSERTION, insertion);
+        map.put(Sorter.SELECTION, selection);
+        map.put(Sorter.BUBBLE,bubble);
+        map.put(Sorter.SHELL,shell);
         return map;
     }
     /**
@@ -31,7 +33,7 @@ public class SortingMethods {
      * Ordena un arreglo de enteros
      * @param array arreglo a ordenar
      * */
-    private static final Sort insertion=array->
+    private static final Sorter insertion=array->
                     {
                         HashMap<String,Integer> map=new HashMap<>();
                         int comparaciones=0;
@@ -64,7 +66,7 @@ public class SortingMethods {
      * @param array arreglo a ordenar
      * 
      * */
-    private static final Sort selection=array->
+    private static final Sorter selection=array->
                     {
                         HashMap<String,Integer> map=new HashMap<>();
                         int comparaciones=0;
@@ -94,7 +96,7 @@ public class SortingMethods {
      * Ordena un arreglo de enteros
      * @param array arreglo a ordenar
      * */
-    private static final Sort bubble=array->
+    private static final Sorter bubble=array->
                     {
                         HashMap<String,Integer> map=new HashMap<>();
                         int comparaciones=0;
@@ -123,7 +125,7 @@ public class SortingMethods {
      * Ordena un arreglo de enteros
      * @param array arreglo a ordenar
      * */
-    private static final Sort shell=array->
+    private static final Sorter shell=array->
                     {
                         HashMap<String,Integer> map=new HashMap<>();
                         int comparaciones=0;
@@ -195,7 +197,29 @@ public class SortingMethods {
      * @param array arreglo a ordenar
      * */
     public static void sortByShell(int[] array){
-       //TODO:
-        //Implementar shell sort
+        LinkedList<Integer> H_list=Series.getH_ShellList(array.length);
+        int h=H_list.pop();
+        while(h>1){
+            for(int i=1;i<array.length;i+=(h+1)){
+                int current =array[i];
+                int j=i-1;
+                while(j>=0&&array[j]>current){
+                    array[j+h]=array[j];
+                    j-=h;
+                }
+                array[j+h]=current;
+            }
+        }
+        for(int i=1;i<array.length;i++){
+            int current =array[i];
+            int j=i-1;
+            while(j>=0&&array[j]>current){
+                array[j+1]=array[j--];
+            }
+            array[j+1]=current;
+	}
+       
+       
     }
+    
 }
